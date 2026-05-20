@@ -1,0 +1,17 @@
+{
+  "ReverseProxy": {
+    "Routes": {
+      "courses": {
+        "ClusterId": "courses",
+        "Match": { "Path": "/api/courses/{**catch-all}" }
+      }
+    },
+    "Clusters": {
+      "courses": {
+        "Destinations": {
+          "destination1": { "Address": "https://course-service-api-vita-fzagd0b4g7a8geap.swedencentral-01.azurewebsites.net/" }
+        }
+      }
+    }
+  }
+}
