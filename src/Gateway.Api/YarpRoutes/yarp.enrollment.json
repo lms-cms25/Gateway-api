@@ -1,0 +1,17 @@
+{
+  "ReverseProxy": {
+    "Routes": {
+      "enrollment": {
+        "ClusterId": "enrollment",
+        "Match": { "Path": "/api/enrollment/{**catch-all}" }
+      }
+    },
+    "Clusters": {
+      "enrollment": {
+        "Destinations": {
+          "destination1": { "Address": "https://enrollment-service-api-vita-geajcyhkhdamdqb7.swedencentral-01.azurewebsites.net/" }
+        }
+      }
+    }
+  }
+}
