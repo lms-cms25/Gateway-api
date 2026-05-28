@@ -8,6 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddJsonFile("YarpRoutes/yarp.courses.json", optional: false, reloadOnChange: true);
 builder.Configuration.AddJsonFile("YarpRoutes/yarp.enrollment.json", optional: false, reloadOnChange: true);
 builder.Configuration.AddJsonFile("YarpRoutes/yarp.identity.json", optional: false, reloadOnChange: true);
+builder.Configuration.AddJsonFile("YarpRoutes/yarp.image.json", optional: false, reloadOnChange: true);
+builder.Configuration.AddJsonFile("YarpRoutes/yarp.notification.json", optional: false, reloadOnChange: true);
+builder.Configuration.AddJsonFile("YarpRoutes/yarp.profile.json", optional: false, reloadOnChange: true);
 builder.Configuration.AddJsonFile("YarpRoutes/yarp.reviews.json", optional: false, reloadOnChange: true);
 builder.Configuration.AddJsonFile("YarpRoutes/yarp.verification.json", optional: false, reloadOnChange: true);
 
@@ -16,13 +19,14 @@ builder.Services.AddOpenApiConfiguration();
 builder.Services.AddReverseProxy()
     .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
 
-builder.Services.AddAuthentication();
-builder.Services.AddAuthorization();
+builder.Services.AddJwtConfiguration();
 
 var app = builder.Build();
 
 app.UseCors("All");
 app.UseHttpsRedirection();
+
+app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();

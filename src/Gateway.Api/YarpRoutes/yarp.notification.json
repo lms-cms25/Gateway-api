@@ -1,0 +1,17 @@
+{
+  "ReverseProxy": {
+    "Routes": {
+      "notification": {
+        "ClusterId": "notification",
+        "Match": { "Path": "/api/notifications/{**catch-all}" }
+      }
+    },
+    "Clusters": {
+      "notification": {
+        "Destinations": {
+          "destination1": { "Address": "https://notifications-service-dyd5gwepdrc8gtc9.spaincentral-01.azurewebsites.net/" }
+        }
+      }
+    }
+  }
+}
