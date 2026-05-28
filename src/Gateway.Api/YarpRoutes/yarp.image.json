@@ -1,0 +1,17 @@
+{
+  "ReverseProxy": {
+    "Routes": {
+      "image": {
+        "ClusterId": "image",
+        "Match": { "Path": "/api/image/{**catch-all}" }
+      }
+    },
+    "Clusters": {
+      "image": {
+        "Destinations": {
+          "destination1": { "Address": "https://image-service-acesb7g4fxaahzha.spaincentral-01.azurewebsites.net/" }
+        }
+      }
+    }
+  }
+}
