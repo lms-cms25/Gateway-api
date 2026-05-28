@@ -3,7 +3,7 @@
     "Routes": {
       "notification": {
         "ClusterId": "notification",
-        "Match": { "Path": "/api/notification/{**catch-all}" }
+        "Match": { "Path": "/api/notifications/{**catch-all}" }
       }
     },
     "Clusters": {
