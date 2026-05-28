@@ -7,7 +7,8 @@
       },
       "identity-admin": {
         "ClusterId": "identity",
-        "Match": { "Path": "/api/admin/{**catch-all}" }
+        "Match": { "Path": "/api/admin/{**catch-all}" },
+        "AuthorizationPolicy": "AdminOnly"
       }
     },
     "Clusters": {

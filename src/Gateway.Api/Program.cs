@@ -16,13 +16,14 @@ builder.Services.AddOpenApiConfiguration();
 builder.Services.AddReverseProxy()
     .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
 
-builder.Services.AddAuthentication();
-builder.Services.AddAuthorization();
+builder.Services.AddJwtConfiguration();
 
 var app = builder.Build();
 
 app.UseCors("All");
 app.UseHttpsRedirection();
+
+app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
