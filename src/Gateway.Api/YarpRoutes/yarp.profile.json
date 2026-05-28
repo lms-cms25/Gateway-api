@@ -1,0 +1,17 @@
+{
+  "ReverseProxy": {
+    "Routes": {
+      "profile": {
+        "ClusterId": "profile",
+        "Match": { "Path": "/api/profile/{**catch-all}" }
+      }
+    },
+    "Clusters": {
+      "profile": {
+        "Destinations": {
+          "destination1": { "Address": "https://profile-service-fhhtb6hzajfnfpgc.spaincentral-01.azurewebsites.net/" }
+        }
+      }
+    }
+  }
+}
