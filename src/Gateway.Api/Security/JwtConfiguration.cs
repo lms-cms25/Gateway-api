@@ -1,13 +1,15 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
+using System.Security.Claims;
 
 namespace Gateway.Api.Security;
 
 public static class JwtConfiguration
 {
-    public static IServiceCollection AddJwtConfiguration(this IServiceCollection services)
+    public static IServiceCollection AddJwtConfiguration(this IServiceCollection services, IConfiguration configuration)
     {
+        var jwt = configuration.GetSection("Jwt");
+        var signingKey = jwt["SigningKey"] ?? throw new InvalidOperationException("Jwt:SigningKey is missing");
 
         services.AddAuthentication(options =>
         {
@@ -20,26 +22,17 @@ public static class JwtConfiguration
             {
                 ValidateIssuer = true,
                 ValidateAudience = true,
-                RoleClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
+                RoleClaimType = ClaimTypes.Role,
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
-                ValidIssuer = "auth-api", // Hämtat från din token!
-                ValidAudience = "microservices", // Hämtat från din token!
-               // IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("VGgxcy0xNS1tWS00VXRoLVMzclYxQ0UtNTFnbjFuSzN5"))
-                IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String("VGgxcy0xNS1tWS00VXRoLVMzclYxQ0UtNTFnbjFuSzN5"))
+                ValidIssuer = jwt["Issuer"],
+                ValidAudience = jwt["Audience"],
+                IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(signingKey))
             };
         });
 
-        // HÄR LÄGGER VI TILL ERA POLICIES!
         services.AddAuthorization(options =>
-        {
-            // Vi skapar en regel som heter "AdminOnly"
-            options.AddPolicy("AdminOnly", policy =>
-                policy.RequireRole("Admin")); // Kräver att roll-claimet inuti token innehåller "Admin"
-
-            // Om ni vill, kan ni även förbereda en för studenter här i framtiden:
-            // options.AddPolicy("StudentOnly", policy => policy.RequireRole("Student"));
-        });
+            options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin")));
 
         return services;
     }
