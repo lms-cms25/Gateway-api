@@ -1,0 +1,17 @@
+{
+  "ReverseProxy": {
+    "Routes": {
+      "verification": {
+        "ClusterId": "verification",
+        "Match": { "Path": "/api/Verification/{**catch-all}" }
+      }
+    },
+    "Clusters": { 
+      "verification": {
+        "Destinations": {
+          "destination1": { "Address": "https://shiko-lms-email-code-verification-api.azurewebsites.net/" }
+        }
+      }
+    }
+  }
+}

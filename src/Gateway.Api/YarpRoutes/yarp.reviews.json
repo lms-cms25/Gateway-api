@@ -1,0 +1,17 @@
+{
+  "ReverseProxy": {
+    "Routes": {
+      "course-reviews": {
+        "ClusterId": "reviews",
+        "Match": { "Path": "/api/reviews/{**catch-all}" }
+      }
+    },
+    "Clusters": {
+      "reviews": {
+        "Destinations": {
+          "destination1": { "Address": "https://review-service-api-vita-hjatfjhhhycpf0f8.spaincentral-01.azurewebsites.net/" }
+        }
+      }
+    }
+  }
+}

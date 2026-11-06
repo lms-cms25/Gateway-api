@@ -2,10 +2,15 @@
 
 public static class ApiEndpoints
 {
-    public static void MapGatewayEndpoints(this WebApplication app)
+    public static WebApplication MapGatewayEndpoints(this WebApplication app)
     {
+        // unused for now, but we can add some custom endpoints here in the future if needed
+        // Api Healtcheck, Metrics, etc.
         var group = app.MapGroup("/api/gateway")
             .WithTags("Gateway")
-            .WithDescription("How to use the Gateway");
+            .WithDescription("Gateway APIs");
+
+        return app;
     }
 }
+

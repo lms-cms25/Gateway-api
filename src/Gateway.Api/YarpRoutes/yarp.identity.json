@@ -1,0 +1,22 @@
+{
+  "ReverseProxy": {
+    "Routes": {
+      "identity-auth": {
+        "ClusterId": "identity",
+        "Match": { "Path": "/api/auth/{**catch-all}" }
+      },
+      "identity-admin": {
+        "ClusterId": "identity",
+        "Match": { "Path": "/api/admin/{**catch-all}" },
+        "AuthorizationPolicy": "AdminOnly"
+      }
+    },
+    "Clusters": {
+      "identity": {
+        "Destinations": {
+          "destination1": { "Address": "https://miguel93-identity-service-f5eactdkcrdnejee.spaincentral-01.azurewebsites.net/" }
+        }
+      }
+    }
+  }
+}
