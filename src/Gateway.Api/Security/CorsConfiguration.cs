@@ -15,7 +15,6 @@ public static class CorsConfiguration
             });
         });
 
-
         return services;
     }
 }
